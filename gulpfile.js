@@ -36,7 +36,7 @@ gulp.task('sass', function(){
   return gulp.src(dirs.source + '/sass/style.scss')         // какой файл компилировать (путь из константы)
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sourcemaps.init())                                // инициируем карту кода
-    .pipe(sass())                                           // компилируем LESS
+    .pipe(sass())                                           // компилируем SASS
     .pipe(postcss([                                         // делаем постпроцессинг
         autoprefixer({ browsers: ['last 2 version'] }),     // автопрефиксирование
         mqpacker({ sort: true }),                           // объединение медиавыражений
@@ -234,7 +234,7 @@ gulp.task('serve', gulp.series('build', function() {
   );
 
 
-  gulp.watch(                                               // следим за LESS
+  gulp.watch(                                               // следим за SASS
     dirs.source + '/sass/**/*.scss',
     gulp.series('sass')                                     // при изменении запускаем компиляцию (обновление браузера — в задаче компиляции)
   );

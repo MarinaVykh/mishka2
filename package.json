@@ -4,7 +4,8 @@
   "description": "Start.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/gulp"
+    "start": "./node_modules/.bin/gulp",
+    "deploy": "gulp deploy"
   },
   "author": "Nikolay Gromov",
   "license": "MIT",
