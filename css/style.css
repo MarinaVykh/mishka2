@@ -1362,8 +1362,7 @@ img {
     display: flex;
     -ms-flex-direction: row;
     flex-direction: row;
-    width: 768px;
-    display: none; }
+    width: 768px; }
   .page-header__logo {
     width: 370px;
     padding: 22px 0 0 50px;
