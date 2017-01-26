@@ -32,14 +32,14 @@ const plumber = require('gulp-plumber');
 const cleanCSS = require('gulp-cleancss');
 
 // ЗАДАЧА: Компиляция препроцессора
-gulp.task('sass', function(){
+gulp.task('sass', function () {
   return gulp.src(dirs.source + '/sass/style.scss')         // какой файл компилировать (путь из константы)
-    .pipe(plumber({ errorHandler: onError }))
+    .pipe(plumber({errorHandler: onError}))
     .pipe(sourcemaps.init())                                // инициируем карту кода
     .pipe(sass())                                           // компилируем SASS
     .pipe(postcss([                                         // делаем постпроцессинг
-        autoprefixer({ browsers: ['last 2 version'] }),     // автопрефиксирование
-        mqpacker({ sort: true }),                           // объединение медиавыражений
+      autoprefixer({browsers: ['last 2 version']}),     // автопрефиксирование
+      mqpacker({sort: true}),                           // объединение медиавыражений
     ]))
     .pipe(sourcemaps.write('/'))                            // записываем карту кода как отдельный файл (путь из константы)
     .pipe(gulp.dest(dirs.build + '/css/'))                  // записываем CSS-файл (путь из константы)
@@ -50,9 +50,9 @@ gulp.task('sass', function(){
 });
 
 // ЗАДАЧА: Сборка HTML
-gulp.task('html', function() {
+gulp.task('html', function () {
   return gulp.src(dirs.source + '/*.html')                  // какие файлы обрабатывать (путь из константы, маска имени)
-    .pipe(plumber({ errorHandler: onError }))
+    .pipe(plumber({errorHandler: onError}))
     .pipe(fileinclude({                                     // обрабатываем gulp-file-include
       prefix: '@@',
       basepath: '@file',
@@ -65,11 +65,11 @@ gulp.task('html', function() {
 // ЗАДАЧА: Копирование изображений
 gulp.task('img', function () {
   return gulp.src([
-        dirs.source + '/img/*.{gif,png,jpg,jpeg,svg}',      // какие файлы обрабатывать (путь из константы, маска имени, много расширений)
-      ],
-      {since: gulp.lastRun('img')}                          // оставим в потоке обработки только изменившиеся от последнего запуска задачи (в этой сессии) файлы
-    )
-    .pipe(plumber({ errorHandler: onError }))
+      dirs.source + '/img/*.{gif,png,jpg,jpeg,svg}',      // какие файлы обрабатывать (путь из константы, маска имени, много расширений)
+    ],
+    {since: gulp.lastRun('img')}                          // оставим в потоке обработки только изменившиеся от последнего запуска задачи (в этой сессии) файлы
+  )
+    .pipe(plumber({errorHandler: onError}))
     .pipe(newer(dirs.build + '/img'))                       // оставить в потоке только новые файлы (сравниваем с содержимым папки билда)
     .pipe(gulp.dest(dirs.build + '/img'));                  // записываем файлы (путь из константы)
 });
@@ -79,9 +79,9 @@ gulp.task('copy:fonts', function () {
   return gulp.src([
       dirs.source + '/fonts/*.{woff,woff2}',      // какие файлы обрабатывать (путь из константы, маска имени, много расширений)
     ],
-    {since: gulp.lastRun('copy:fonts')}                          // оставим в потоке обработки только изменившиеся от последнего запуска задачи (в этой сессии) файлы
+    {since: gulp.lastRun('copy:fonts')}                       // оставим в потоке обработки только изменившиеся от последнего запуска задачи (в этой сессии) файлы
   )
-    .pipe(plumber({ errorHandler: onError }))
+    .pipe(plumber({errorHandler: onError}))
     .pipe(newer(dirs.build + '/fonts'))                       // оставить в потоке только новые файлы (сравниваем с содержимым папки билда)
     .pipe(gulp.dest(dirs.build + '/fonts'));                  // записываем файлы (путь из константы)
 });
@@ -89,24 +89,24 @@ gulp.task('copy:fonts', function () {
 // ЗАДАЧА: Оптимизация изображений (ЗАДАЧА ЗАПУСКАЕТСЯ ТОЛЬКО ВРУЧНУЮ)
 gulp.task('img:opt', function () {
   return gulp.src([
-      dirs.source + '/img/*.{gif,png,jpg,jpeg,svg}',        // какие файлы обрабатывать (путь из константы, маска имени, много расширений)
-      '!' + dirs.source + '/img/sprite-svg.svg',            // SVG-спрайт брать в обработку не будем
-    ])
-    .pipe(plumber({ errorHandler: onError }))
+    dirs.source + '/img/*.{gif,png,jpg,jpeg,svg}',        // какие файлы обрабатывать (путь из константы, маска имени, много расширений)
+    '!' + dirs.source + '/img/sprite-svg.svg',            // SVG-спрайт брать в обработку не будем
+  ])
+    .pipe(plumber({errorHandler: onError}))
     .pipe(imagemin({                                        // оптимизируем
       progressive: true,
       svgoPlugins: [{removeViewBox: false}],
       use: [pngquant()]
     }))
-    .pipe(gulp.dest(dirs.source + '/img'));                  // записываем файлы в исходную папку
+    .pipe(gulp.dest(dirs.source + '/img'));                 // записываем файлы в исходную папку
 });
 
 // ЗАДАЧА: Сборка SVG-спрайта
 gulp.task('svgstore', function (callback) {
   let spritePath = dirs.source + '/img/svg-sprite';          // константа с путем к исходникам SVG-спрайта
-  if(fileExist(spritePath) !== false) {
+  if (fileExist(spritePath) !== false) {
     return gulp.src(spritePath + '/*.svg')                   // берем только SVG файлы из этой папки, подпапки игнорируем
-      // .pipe(plumber({ errorHandler: onError }))
+    // .pipe(plumber({ errorHandler: onError }))
       .pipe(svgmin(function (file) {
         return {
           plugins: [{
@@ -116,9 +116,9 @@ gulp.task('svgstore', function (callback) {
           }]
         }
       }))
-      .pipe(svgstore({ inlineSvg: true }))
+      .pipe(svgstore({inlineSvg: true}))
       .pipe(cheerio(function ($) {
-        $('svg').attr('style',  'display:none');             // дописываем получающемуся SVG-спрайту инлайновое сокрытие
+        $('svg').attr('style', 'display:none');             // дописываем получающемуся SVG-спрайту инлайновое сокрытие
       }))
       .pipe(rename('sprite-svg.svg'))
       .pipe(gulp.dest(dirs.source + '/img'));
@@ -140,11 +140,11 @@ gulp.task('clean', function () {
 // ЗАДАЧА: Конкатенация и углификация Javascript
 gulp.task('js', function () {
   return gulp.src([
-      // список обрабатываемых файлов
-      //dirs.source + '/js/map.js',
-      dirs.source + '/js/javascript.js',
-    ])
-    .pipe(plumber({ errorHandler: onError }))
+    // список обрабатываемых файлов
+    //dirs.source + '/js/map.js',
+    dirs.source + '/js/javascript.js',
+  ])
+    .pipe(plumber({errorHandler: onError}))
     .pipe(concat('javascript.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dirs.build + '/js'));
@@ -162,13 +162,13 @@ gulp.task('js:copy:map', function () {
 // ЗАДАЧА: Кодирование в base64 шрифта в формате WOFF
 gulp.task('css:fonts:woff', function (callback) {
   let fontCssPath = dirs.source + '/fonts/font_opensans_woff.css'; // с каким исходным файлом работаем
-  if(fileExist(fontCssPath) !== false) { // если исходный файл существует, продолжим
+  if (fileExist(fontCssPath) !== false) { // если исходный файл существует, продолжим
     return gulp.src(fontCssPath)
-      .pipe(plumber({ errorHandler: onError }))
-      .pipe(base64({                   // ищем в CSS файле подключения сторонних ресурсов, чтоб закодировать base64 и вставить прямо в файл
+      .pipe(plumber({errorHandler: onError}))
+      .pipe(base64({                  // ищем в CSS файле подключения сторонних ресурсов, чтоб закодировать base64 и вставить прямо в файл
         // baseDir: '/',
         extensions: ['woff'],         // только указанного тут формата ресурсов
-        maxImageSize: 1024*1024,      // максимальный размер в байтах
+        maxImageSize: 1024 * 1024,    // максимальный размер в байтах
         deleteAfterEncoding: false,   // не удаляем исходный ресурс после работы!
         // debug: true
       }))
@@ -178,19 +178,19 @@ gulp.task('css:fonts:woff', function (callback) {
     console.log('Файла WOFF, из которого генерируется CSS с base64-кодированным шрифтом, нет');
     console.log('Отсутствующий файл: ' + fontCssPath);
     callback();
-}
+  }
 });
 
 // ЗАДАЧА: Кодирование в base64 шрифта в формате WOFF2
 gulp.task('css:fonts:woff2', function (callback) {
   let fontCssPath = dirs.source + '/fonts/font_opensans_woff2.css'; // с каким исходным файлом работаем
-  if(fileExist(fontCssPath) !== false) { // если исходный файл существует, продолжим
+  if (fileExist(fontCssPath) !== false) { // если исходный файл существует, продолжим
     return gulp.src(fontCssPath)
-      .pipe(plumber({ errorHandler: onError }))
+      .pipe(plumber({errorHandler: onError}))
       .pipe(base64({                   // ищем в CSS файле подключения сторонних ресурсов, чтоб закодировать base64 и вставить прямо в файл
         // baseDir: '/',
         extensions: ['woff2'],         // только указанного тут формата ресурсов
-        maxImageSize: 1024*1024,       // максимальный размер в байтах
+        maxImageSize: 1024 * 1024,     // максимальный размер в байтах
         deleteAfterEncoding: false,    // не удаляем исходный ресурс после работы!
         // debug: true
       }))
@@ -213,7 +213,7 @@ gulp.task('build', gulp.series(                             // последов�
 ));
 
 // ЗАДАЧА: Локальный сервер, слежение
-gulp.task('serve', gulp.series('build', function() {
+gulp.task('serve', gulp.series('build', function () {
 
   browserSync.init({                                        // запускаем локальный сервер (показ, автообновление, синхронизацию)
     //server: dirs.build,                                     // папка, которая будет «корнем» сервера (путь из константы)
@@ -221,7 +221,7 @@ gulp.task('serve', gulp.series('build', function() {
       baseDir: "./build/"
     },
     port: 3000,                                             // порт, на котором будет работать сервер
-    startPath: '/index.html',                           // файл, который буде открываться в браузере при старте сервера
+    startPath: '/index.html',                               // файл, который буде открываться в браузере при старте сервера
     // open: false                                          // возможно, каждый раз стартовать сервер не нужно...
   });
 
@@ -257,7 +257,7 @@ gulp.task('serve', gulp.series('build', function() {
 }));
 
 // ЗАДАЧА, ВЫПОЛНЯЕМАЯ ТОЛЬКО ВРУЧНУЮ: Отправка в GH pages (ветку gh-pages репозитория)
-gulp.task('deploy', function() {
+gulp.task('deploy', function () {
   return gulp.src('./build/**/*')
     .pipe(ghPages());
 });
@@ -278,14 +278,14 @@ function fileExist(path) {
   const fs = require('fs');
   try {
     fs.statSync(path);
-  } catch(err) {
+  } catch (err) {
     return !(err && err.code === 'ENOENT');
   }
 }
 
-var onError = function(err) {
-    notify.onError({
-      title: "Error in " + err.plugin,
-    })(err);
-    this.emit('end');
+var onError = function (err) {
+  notify.onError({
+    title: "Error in " + err.plugin,
+  })(err);
+  this.emit('end');
 };
