@@ -159,6 +159,14 @@ gulp.task('js:copy:map', function () {
     .pipe(gulp.dest(dirs.build + '/js'));
 });
 
+gulp.task('js:copy:picturefill', function () {
+  return gulp.src([
+    // список обрабатываемых файлов
+    dirs.source + '/js/picturefill.min.js',
+  ])
+    .pipe(gulp.dest(dirs.build + '/js'));
+});
+
 // ЗАДАЧА: Кодирование в base64 шрифта в формате WOFF
 gulp.task('css:fonts:woff', function (callback) {
   let fontCssPath = dirs.source + '/fonts/font_opensans_woff.css'; // с каким исходным файлом работаем
@@ -208,7 +216,7 @@ gulp.task('css:fonts:woff2', function (callback) {
 gulp.task('build', gulp.series(                             // последовательно:
   'clean',                                                  // последовательно: очистку папки сборки
   'svgstore',
-  gulp.parallel('sass', 'img', 'js', 'js:copy:map', 'copy:fonts'),
+  gulp.parallel('sass', 'img', 'js', 'js:copy:map', 'js:copy:picturefill', 'copy:fonts'),
   'html'                                                    // последовательно: сборку разметки
 ));
 
@@ -222,7 +230,7 @@ gulp.task('serve', gulp.series('build', function () {
     },
     port: 3000,                                             // порт, на котором будет работать сервер
     startPath: '/index.html',                               // файл, который буде открываться в браузере при старте сервера
-    // open: false                                          // возможно, каждый раз стартовать сервер не нужно...
+    open: false                                             // возможно, каждый раз стартовать сервер не нужно...
   });
 
   gulp.watch(                                               // следим за HTML

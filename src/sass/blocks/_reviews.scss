@@ -1,3 +1,8 @@
+reviews-content {
+  width: 100%;
+
+}
+
 .reviews {
   position: relative;
   margin: 0 auto;
@@ -119,6 +124,10 @@
 }
 
 @media ($tablet-width) {
+  reviews-content {
+    width: 100%;
+
+  }
 
   .reviews {
     position: relative;
@@ -223,6 +232,11 @@
 }
 
 @media ($desktop-width) {
+  reviews-content {
+    width: 100vw;
+
+  }
+
   .reviews {
     width: 1150px;
     margin-bottom: 35px;
@@ -230,7 +244,7 @@
 
     &::after {
       background-size: 1150px 23px;
-      width: 99.2vw;
+      width: 100vw;
       bottom: -100px;
 
     }
