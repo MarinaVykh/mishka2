@@ -1,8 +1,3 @@
-.product-of-week-content {
-  width: 100%;
-
-}
-
 .product-of-week {
   position: relative;
   padding: 0 30px 30px 30px;
@@ -95,11 +90,6 @@
 }
 
 @media ($tablet-width) {
-  .product-of-week-content {
-    width: 100%;
-
-  }
-
   .product-of-week {
     position: relative;
     width: 768px;
@@ -208,11 +198,6 @@
 }
 
 @media ($desktop-width) {
-  .product-of-week-content {
-    width: 100vw;
-
-  }
-
   .product-of-week {
     position: relative;
     width: 1150px;
@@ -224,7 +209,7 @@
       background: url('../img/bg-zigzag-line.svg');
       background-repeat: repeat-x;
       background-size: 1150px 23px;
-      width: 100vw;
+      width: 99.2vw;
       height: 23px;
       left: 50%;
       right: 0;
