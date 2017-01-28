@@ -574,9 +574,6 @@ img {
     background-image: url("../img/icon-toy-active.svg");
     color: #8dd5c9; }
 
-.product-of-week-content {
-  width: 100%; }
-
 .product-of-week {
   position: relative;
   padding: 0 30px 30px 30px; }
@@ -710,9 +707,6 @@ img {
     background-image: url("../img/icon-feature-6.svg");
     background-repeat: no-repeat;
     bottom: 20px; }
-
-reviews-content {
-  width: 100%; }
 
 .reviews {
   position: relative;
@@ -1497,8 +1491,6 @@ reviews-content {
   .product-types__item:hover {
     min-height: 125px;
     margin-top: -5px; }
-  .product-of-week-content {
-    width: 100%; }
   .product-of-week {
     position: relative;
     width: 768px;
@@ -1609,8 +1601,6 @@ reviews-content {
   .about-us__item--present {
     -ms-flex-order: 6;
     order: 6; }
-  reviews-content {
-    width: 100%; }
   .reviews {
     position: relative;
     width: 768px;
@@ -2164,8 +2154,6 @@ reviews-content {
     background-position: 92%; }
   .product-types__item--kids-toys {
     background-position: 92%; }
-  .product-of-week-content {
-    width: 100vw; }
   .product-of-week {
     position: relative;
     width: 1150px;
@@ -2176,7 +2164,7 @@ reviews-content {
     background: url("../img/bg-zigzag-line.svg");
     background-repeat: repeat-x;
     background-size: 1150px 23px;
-    width: 100vw;
+    width: 99.2vw;
     height: 23px;
     left: 50%;
     right: 0;
@@ -2235,15 +2223,13 @@ reviews-content {
     -ms-flex-order: 6;
     order: 6;
     padding-right: 80px; }
-  reviews-content {
-    width: 100vw; }
   .reviews {
     width: 1150px;
     margin-bottom: 35px;
     padding-left: 170px; }
   .reviews::after {
     background-size: 1150px 23px;
-    width: 100vw;
+    width: 99.2vw;
     bottom: -100px; }
   .reviews__title {
     font-size: 53px;
@@ -2279,7 +2265,6 @@ reviews-content {
     font-size: 53px;
     line-height: 57px; }
   .contacts__title::after {
-    top: 80px;
     left: -100px; }
   .contacts__items {
     margin: 0; }
@@ -2390,7 +2375,7 @@ reviews-content {
     line-height: 57px; }
   .form__text {
     width: 700px;
-    margin: 0 110px; }
+    margin: 0 225px; }
   .form__order-settings {
     -ms-flex-align: start;
     align-items: flex-start;
